@@ -157,7 +157,7 @@ bool func_uc(std::ostream& os, Object& params)
 	std::string::iterator it(result.begin()),
 		end(result.end());
 	for (; it != end; ++it)
-		(*it) = std::toupper((*it));
+		(*it) = toupper((*it));
 	
 	os << result;
 	return iserr;
@@ -184,7 +184,7 @@ bool func_lc(std::ostream& os, Object& params)
 	std::string::iterator it(result.begin()),
 		end(result.end());
 	for (; it != end; ++it)
-		(*it) = std::tolower((*it));
+		(*it) = tolower((*it));
 	
 	os << result;
 	return iserr;
