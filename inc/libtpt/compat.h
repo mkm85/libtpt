@@ -53,7 +53,9 @@
 // Turn off warnings for long symbol names caused by the STL
 #	pragma warning(disable : 4786)
 
+#if _MSC_VER < 1900
 #   define snprintf _snprintf
+#endif
 // Import common standard library functions into the std namespace on Microsoft
 // Visual C++ 6 or earlier, but only if not already running with the STLPort
 // fix.
