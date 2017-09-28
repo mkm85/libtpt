@@ -1,6 +1,10 @@
 LibTPT Revisions
 ================
 
+Version 1.34
+------------
+- Updated code to compile without warnings.
+
 Version 1.33
 ------------
 - Updated code to compile with G++ 4.4
