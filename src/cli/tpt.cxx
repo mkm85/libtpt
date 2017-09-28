@@ -136,7 +136,9 @@ void dumptemplate(clo::parser& parser)
         p = std::make_shared<TPT::Parser>(*buf, sym);
     }
     else
+    {
         p = std::make_shared<TPT::Parser>(other[0].c_str(), sym);
+    }
 
 	// Add Include directories.
 	if (!options.include.empty())
