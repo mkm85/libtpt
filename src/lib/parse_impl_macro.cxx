@@ -151,9 +151,9 @@ void Parser_Impl::user_macro(const std::string& name, std::ostream* os)
 			savehash[*pit] = objptr;
 
 		if (i >= pl.size())
-			symimp.symbols.hash()[*pit] = new Object("");
+			symimp.symbols.hash()[*pit] = std::make_shared<Object>("");
 		else
-			symimp.symbols.hash()[*pit] = new Object(*pl[i++].get());
+			symimp.symbols.hash()[*pit] = std::make_shared<Object>(*pl[i++].get());
 	}
 
 	// Call the macro

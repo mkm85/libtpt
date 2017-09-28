@@ -376,7 +376,7 @@ bool Parser_Impl::getparamlist(Object& pl)
 	{
 		Object obj(tok);
 		Object nextobj = parse_level0(obj);
-		pl.array().push_back(new Object(obj));
+		pl.array().push_back(std::make_shared<Object>(obj));
 
 		if (nextobj.gettype() != Object::type_token)
 		{
@@ -437,7 +437,7 @@ bool Parser_Impl::getidparamlist(std::string& id,  Object& pl)
 	{
 		Object obj(tok);
 		Object nextobj = parse_level0(obj);
-		pl.array().push_back(new Object(obj));
+		pl.array().push_back(std::make_shared<Object>(obj));
 
 		if (nextobj.gettype() != Object::type_token)
 		{

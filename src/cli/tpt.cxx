@@ -49,7 +49,6 @@
 #include "clo.h"
 
 #include <libtpt/tpt.h>
-#include <libtpt/smartptr.h>
 
 #include <iostream>
 #include <memory>
@@ -117,8 +116,8 @@ void dumptemplate(clo::parser& parser)
 	if (options.cgiheader)
 		std::cout << "Content-type: text/html" << std::endl << std::endl;
 	
-    notboost::shared_ptr< TPT::Parser > p;
-    notboost::shared_ptr< TPT::Buffer > buf;
+    std::shared_ptr< TPT::Parser > p;
+    std::shared_ptr< TPT::Buffer > buf;
     TPT::Symbols sym;
     
     // Add variables defined on the command line
@@ -133,11 +132,11 @@ void dumptemplate(clo::parser& parser)
     // Construct the parser based on the input source
     if (options.console)
     {
-        buf = new TPT::Buffer(&std::cin);
-        p = new TPT::Parser(*buf, sym);
+        buf = std::make_shared<TPT::Buffer>(&std::cin);
+        p = std::make_shared<TPT::Parser>(*buf, sym);
     }
     else
-        p = new TPT::Parser(other[0].c_str(), sym);
+        p = std::make_shared<TPT::Parser>(other[0].c_str(), sym);
 
 	// Add Include directories.
 	if (!options.include.empty())

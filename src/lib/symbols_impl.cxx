@@ -161,7 +161,7 @@ bool Symbols_Impl::pushobject(const SymbolKeyType& id,
 	if (getobjectforset(id, table, pobj))
 		return true;
 
-	pobj->array().push_back(new Object(value));
+	pobj->array().push_back(std::make_shared<Object>(value));
 	return false;
 }
 
@@ -180,7 +180,7 @@ bool Symbols_Impl::pushobject(const SymbolKeyType& id,
 	if (getobjectforset(id, table, pobj))
 		return true;
 
-	pobj->array().push_back(new Object(value));
+	pobj->array().push_back(std::make_shared<Object>(value));
 	return false;
 }
 
@@ -199,7 +199,7 @@ bool Symbols_Impl::pushobject(const SymbolKeyType& id,
 	if (getobjectforset(id, table, pobj))
 		return true;
 
-	pobj->array().push_back(new Object(value));
+	pobj->array().push_back(std::make_shared<Object>(value));
 	return false;
 }
 
@@ -218,7 +218,7 @@ bool Symbols_Impl::pushobject(const SymbolKeyType& id,
 	if (getobjectforset(id, table, pobj))
 		return true;
 
-	pobj->array().push_back(new Object(value));
+	pobj->array().push_back(std::make_shared<Object>(value));
 	return false;
 }
 
@@ -378,7 +378,7 @@ bool Symbols_Impl::getobjectforset(const SymbolKeyType& id, Object& table,
 				Object::HashType& hash = table.hash();
 				// Make sure the new symbol exists
 				if (hash.find(newid) == hash.end())
-					hash[newid] = new Object(Object::type_hash);
+					hash[newid] = std::make_shared<Object>(Object::type_hash);
 				// Recurse on key part of hash
                 return getobjectforset(id.substr(index), *hash[newid], rpobj);
 			}
@@ -401,9 +401,9 @@ bool Symbols_Impl::getobjectforset(const SymbolKeyType& id, Object& table,
 					Object::HashType& hash = table.hash();
 					// Make sure this symbol exists as an array object.
 					if (hash.find(newid) == hash.end())
-						hash[newid] = new Object(Object::type_array);
+						hash[newid] = std::make_shared<Object>(Object::type_array);
 					else if (hash[newid]->gettype() != Object::type_array)
-						hash[newid] = new Object(Object::type_array);
+						hash[newid] = std::make_shared<Object>(Object::type_array);
 				}
 				else if (table.gettype() != Object::type_array)
 					return true;
@@ -423,9 +423,9 @@ bool Symbols_Impl::getobjectforset(const SymbolKeyType& id, Object& table,
 					// The next character must be a hash . or array [index],
 					// otherwise this symbol is invalid.
 					if (id[index] == '[')
-						array[arrayindex] = new Object(Object::type_array);
+						array[arrayindex] = std::make_shared<Object>(Object::type_array);
 					else if (id[index++] == '.')
-						array[arrayindex] = new Object(Object::type_hash);
+						array[arrayindex] = std::make_shared<Object>(Object::type_hash);
 					else
 						return true;
 					return getobjectforset(id.substr(index),
@@ -435,7 +435,7 @@ bool Symbols_Impl::getobjectforset(const SymbolKeyType& id, Object& table,
 				{
 					// If the array index is the last part of the identifier,
 					// then this call must be setting a scalar object.
-					array[arrayindex] = new Object(Object::type_scalar);
+					array[arrayindex] = std::make_shared<Object>(Object::type_scalar);
 					rpobj = array[arrayindex];
 					return false;
 				}
@@ -459,7 +459,7 @@ bool Symbols_Impl::getobjectforset(const SymbolKeyType& id, Object& table,
 	}
 	else
 	{
-		rpobj = new Object(Object::type_scalar);
+		rpobj = std::make_shared<Object>(Object::type_scalar);
 		table.hash()[newid] = rpobj;
 	}
 	return false;

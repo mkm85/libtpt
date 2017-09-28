@@ -177,7 +177,7 @@ void Parser_Impl::parse_keys()
 		Object::HashType::iterator it(hobj.hash().begin()),
 			end(hobj.hash().end());
 		for (; it != end; ++it)
-			aobj.array().push_back(new Object(it->first));
+			aobj.array().push_back(std::make_shared<Object>(it->first));
 	}
 }
 
@@ -206,18 +206,18 @@ void Parser_Impl::parse_push()
 		obj = Object::type_array;
 	Object::ArrayType& array = obj.array();
 	if (pl.empty())
-		array.push_back(new Object(""));
+		array.push_back(std::make_shared<Object>(""));
 	else
 	{
 		if (pl.size() > 1)
 		{
 			// push whole array
-			array.push_back(new Object(params));
+			array.push_back(std::make_shared<Object>(params));
 		}
 		else
 		{
 			// push scalar
-			array.push_back(new Object(*pl[0].get()));
+			array.push_back(std::make_shared<Object>(*pl[0].get()));
 		}
 	}
 }

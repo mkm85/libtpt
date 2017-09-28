@@ -56,7 +56,7 @@ Symbols::Symbols(bool setdefaults)
     if (setdefaults)
         for (unsigned i=0; i<numbuiltins; ++i)
             imp->symbols.hash()[libtpt_builtins[i].id] =
-                new Object(libtpt_builtins[i].value);
+                std::make_shared<Object>(libtpt_builtins[i].value);
 }
 
 

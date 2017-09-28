@@ -155,7 +155,7 @@ Object::Object(const TArrayType& v)
     TArrayType::const_iterator it(v.begin()), end(v.end());
     register unsigned n;
     for (n=0; it!=end; ++it, ++n) {
-        (*u.array)[n] = new Object(*it);
+        (*u.array)[n] = std::make_shared<Object>(*it);
     }
 }
 
@@ -173,7 +173,7 @@ Object::Object(const THashType& h)
     type = type_hash;
     THashType::const_iterator it(h.begin()), end(h.end());
     for (; it!=end; ++it) {
-        (*u.hash)[it->first] = new Object(it->second);
+        (*u.hash)[it->first] = std::make_shared<Object>(it->second);
     }
 }
 
@@ -322,7 +322,7 @@ Object& Object::operator=(const TArrayType& v)
     TArrayType::const_iterator it(v.begin()), end(v.end());
     register unsigned n;
     for (n=0; it!=end; ++it, ++n) {
-        (*u.array)[n] = new Object(*it);
+        (*u.array)[n] = std::make_shared<Object>(*it);
     }
     return *this;
 }
@@ -342,7 +342,7 @@ Object& Object::operator=(const THashType& h)
         u.hash->clear();    // Clear existing data
     THashType::const_iterator it(h.begin()), end(h.end());
     for (; it!=end; ++it) {
-        (*u.hash)[it->first] = new Object(it->second);
+        (*u.hash)[it->first] = std::make_shared<Object>(it->second);
     }
     return *this;
 }
@@ -446,7 +446,7 @@ Object& Object::operator[] (unsigned n) throw(tptexception)
         u.array->resize(n+1); // May throw, okay.
         // Make sure each new element is allocated
         for (; oldsize <= n; ++oldsize) {
-            (*u.array)[oldsize] = new Object;
+            (*u.array)[oldsize] = std::make_shared<Object>();
         }
     }
     PtrType& p = (*u.array)[n];
@@ -470,7 +470,7 @@ Object& Object::operator[] (const std::string& k) throw(tptexception)
     PtrType& p = (*u.hash)[k];
     // Make sure this bucket is allocated
     if (!p.get())
-        p = new Object;
+        p = std::make_shared<Object>();
     return *p;
 }
 

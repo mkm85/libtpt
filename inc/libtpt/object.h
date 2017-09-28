@@ -36,12 +36,12 @@
 
 #include "compat.h"
 #include "token.h"
-#include "smartptr.h"
 #include "tptexcept.h"
 #include "tpttypes.h"
 #include <string>
 #include <map>
 #include <vector>
+#include <memory>
 
 namespace TPT {
 
@@ -64,7 +64,7 @@ public:
 	};
 
 	// Some typedefs
-	typedef notboost::shared_ptr< Object > PtrType;
+	typedef std::shared_ptr< Object > PtrType;
 	typedef std::vector< PtrType > ArrayType;
 	typedef std::map< std::string, PtrType > HashType;
 	typedef Token<> TokenType;
