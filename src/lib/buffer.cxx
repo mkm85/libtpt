@@ -156,7 +156,7 @@ Buffer::~Buffer()
  */
 char Buffer::getnextchar()
 {
-    register char c = buffer_[bufferidx_];
+    char c = buffer_[bufferidx_];
     ++bufferidx_;
 
     // If our buffer is empty, try reading from the stream

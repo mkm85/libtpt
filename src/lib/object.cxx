@@ -153,7 +153,7 @@ Object::Object(const TArrayType& v)
     // content.
     u.array->resize(v.size());
     TArrayType::const_iterator it(v.begin()), end(v.end());
-    register unsigned n;
+    unsigned n;
     for (n=0; it!=end; ++it, ++n) {
         (*u.array)[n] = std::make_shared<Object>(*it);
     }
@@ -320,7 +320,7 @@ Object& Object::operator=(const TArrayType& v)
     // content.
     u.array->resize(v.size());
     TArrayType::const_iterator it(v.begin()), end(v.end());
-    register unsigned n;
+    unsigned n;
     for (n=0; it!=end; ++it, ++n) {
         (*u.array)[n] = std::make_shared<Object>(*it);
     }
@@ -441,7 +441,7 @@ Object& Object::operator[] (unsigned n) throw(tptexception)
     if (type != type_array)
         settype(type_array);
     // Enlarge array if needed
-    register unsigned oldsize = u.array->size();
+    unsigned oldsize = u.array->size();
     if (n+1 > oldsize) {
         u.array->resize(n+1); // May throw, okay.
         // Make sure each new element is allocated

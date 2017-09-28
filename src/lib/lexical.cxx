@@ -366,7 +366,7 @@ Token<> Lex::getspecialtoken()
  */
 void Lex::unget(const Token<>& tok)
 {
-	register size_t i = tok.value.size();
+	size_t i = tok.value.size();
 	buf_.seek(buf_.offset() - i);
 	column_-= i;
 }
